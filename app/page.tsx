@@ -1,91 +1,77 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+"use client";
+import { useState } from "react";
+import Image from "next/image";
+import Pexels1 from "../public/pexels-1.webp";
+import Pexels2 from "../public/pexels-2.webp";
+import Pexels3 from "../public/pexels-3.webp";
+import Pexels4 from "../public/pexels-4.webp";
+import Pexels5 from "../public/pexels-5.webp";
 
-const inter = Inter({ subsets: ['latin'] })
+const images = [Pexels1, Pexels2, Pexels3, Pexels4, Pexels5];
 
-export default function Home() {
+export default function App() {
+  const [current, setCurrent] = useState(0);
+
+  function nextSlide() {
+    setCurrent(current === images.length - 1 ? 0 : current + 1);
+  }
+
+  function prevSlide() {
+    setCurrent(current === 0 ? images.length - 1 : current - 1);
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="flex-row justify-center align-middle min-h-screen w-full bg-gray-300">
+      <div
+        id="left"
+        className="absolute left-0 z-10 top-[15rem] cursor-pointer"
+        onClick={prevSlide}
+      >
+        <svg
+          className="w-[3rem]"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          <path
+            data-name="chevron-circle-left-Filled"
+            d="M12 2.5a9.5 9.5 0 1 0 9.5 9.5A9.509 9.509 0 0 0 12 2.5Zm1.71 11.79a1.008 1.008 0 0 1 0 1.42 1.014 1.014 0 0 1-1.42 0l-3-3a1.008 1.008 0 0 1 0-1.42l3-3a1 1 0 0 1 1.42 1.42L11.41 12Z"
+          />
+        </svg>
       </div>
-    </main>
-  )
+      <div
+        id="right"
+        className="absolute right-0 z-10 top-[15rem] cursor-pointer"
+        onClick={nextSlide}
+      >
+        <svg
+          className="w-[3rem]"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            data-name="chevron-circle-right-Filled"
+            d="M12 2.5a9.5 9.5 0 1 0 9.5 9.5A9.509 9.509 0 0 0 12 2.5Zm2.71 10.21-3 3a1.014 1.014 0 0 1-1.42 0 1.008 1.008 0 0 1 0-1.42l2.3-2.29-2.3-2.29a1 1 0 0 1 1.42-1.42l3 3a1.008 1.008 0 0 1 0 1.42Z"
+          />
+        </svg>
+      </div>
+      {images.map(
+        (image, index) =>
+          current === index && (
+            <div
+              key={index}
+              className="flex w-full justify-center align-middle pt-[3rem]"
+            >
+              <Image
+                width={600}
+                height={400}
+                src={image}
+                alt="images"
+                className="rounded-lg"
+                priority={false}
+              />
+            </div>
+          )
+      )}
+    </div>
+  );
 }
