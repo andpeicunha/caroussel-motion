@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Pexels1 from "../public/pexels-1.webp";
-import Pexels2 from "../public/pexels-2.webp";
-import Pexels3 from "../public/pexels-3.webp";
-import Pexels4 from "../public/pexels-4.webp";
-import Pexels5 from "../public/pexels-5.webp";
 
-const images = [Pexels1, Pexels2, Pexels3, Pexels4, Pexels5];
+const images = [
+  require("../public/pexels-1.jpg"),
+  require("../public/pexels-2.jpg"),
+  require("../public/pexels-3.jpg"),
+  require("../public/pexels-4.jpg"),
+  require("../public/pexels-5.jpg"),
+];
 
 export default function App() {
   const [current, setCurrent] = useState(0);
@@ -23,7 +24,10 @@ export default function App() {
   return (
     <>
       <div className="fixed flex flex-row min-h-screen w-full px-5">
-        <div className="flex w-1/2 cursor-pointer" onClick={prevSlide}>
+        <div
+          className="fixed flex left-0 w-[12%] hover:bg-white/20 min-h-screen cursor-pointer"
+          onClick={prevSlide}
+        >
           <svg
             className="w-[4rem]"
             viewBox="0 0 24 24"
@@ -34,7 +38,7 @@ export default function App() {
         </div>
 
         <div
-          className="flex justify-end w-1/2 cursor-pointer"
+          className="fixed flex justify-end right-0 w-[12%] hover:bg-white/20 min-h-screen pr-4 cursor-pointer"
           onClick={nextSlide}
         >
           <svg
@@ -47,11 +51,11 @@ export default function App() {
         </div>
       </div>
 
-      <div className="flex min-h-screen w-full z-10">
+      <div className="flex min-h-screen w-full z-10 overflow-hidden">
         {images.map(
           (image, index) =>
             current === index && (
-              <div key={index} className="grow bg-red-100">
+              <div key={index} className="h-full w-full object-cover">
                 <Image
                   width={600}
                   height={400}
